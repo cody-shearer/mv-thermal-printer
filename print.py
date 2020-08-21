@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import sys, os, random, getopt, re
 from Adafruit_Thermal import *
-from PIL import Image, ImageFont
+from PIL import Image, ImageFont, ImageDraw
 
 fnt = ImageFont.truetype('VCR_OSD_MONO_1.001.ttf', 21)
 
