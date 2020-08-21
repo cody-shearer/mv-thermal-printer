@@ -3,7 +3,7 @@ import sys, os, random, getopt, re
 from Adafruit_Thermal import *
 from PIL import Image, ImageFont
 
-fnt = ImageFont.truetype('MAGIC.ttf', 20)
+fnt = ImageFont.truetype('VCR_OSD_MONO_1.001.ttf', 21)
 
 def main():
     printer = Adafruit_Thermal("/dev/ttyUSB0", 9600, timeout=5)
@@ -20,7 +20,7 @@ def main():
 
 def add_name(image, text):
   draw = ImageDraw.Draw(image)
-  draw.text((30,30), 'Serra Angel', font=fnt)
+  draw.text((30,28), 'Serra Angel', font=fnt)
 
 if __name__ == '__main__':
   main()
