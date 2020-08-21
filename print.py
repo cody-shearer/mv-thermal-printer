@@ -6,8 +6,8 @@ from PIL import Image
 def main():
     printer = Adafruit_Thermal("/dev/ttyUSB0", 9600, timeout=5)
 
-
-    printer.printImage('template.png',False)
+    img = Image.new('1', [384,5], 'black')
+    printer.printImage(img,False)
 
     printer.feed(2)
 
