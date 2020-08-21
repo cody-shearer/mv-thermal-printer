@@ -8,7 +8,7 @@ fnt = ImageFont.truetype('VCR_OSD_MONO_1.001.ttf', 21)
 def main():
     printer = Adafruit_Thermal("/dev/ttyUSB0", 9600, timeout=5)
 
-    img = Image.open('template.png')
+    im = Image.open('template.png')
     add_name(im, 'Serra Angel')
     add_rules(im, 'Flying, Vigilance')
     add_artist(im, 'Douglas Schuler')
