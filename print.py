@@ -3,7 +3,7 @@ import sys, os, random, getopt, re
 from Adafruit_Thermal import *
 from PIL import Image, ImageFont
 
-fnt = ImageFont.truetype('Magic.ttf', 20)
+fnt = ImageFont.truetype('MAGIC.ttf', 20)
 
 def main():
     printer = Adafruit_Thermal("/dev/ttyUSB0", 9600, timeout=5)
