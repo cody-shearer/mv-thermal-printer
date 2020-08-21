@@ -550,16 +550,16 @@ class Adafruit_Thermal(Serial):
 	def printImage(self, image_file, LaaT=False):
 		from PIL import Image
 
-		if image.mode != '1':
-			image = image.convert('1')
+		if image_file.mode != '1':
+			image_file = image_file.convert('1')
 
-		width  = image.size[0]
-		height = image.size[1]
+		width  = image_file.size[0]
+		height = image_file.size[1]
 		if width > 384:
 			width = 384
 		rowBytes = math.floor((width + 7) / 8)
 		bitmap   = bytearray(rowBytes * height)
-		pixels   = image.load()
+		pixels   = image_file.load()
 
 		for y in range(height):
 			n = y * rowBytes
