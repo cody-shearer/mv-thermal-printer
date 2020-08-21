@@ -15,7 +15,7 @@ def main():
     add_types(im, 'Angel')
     add_power_toughness(im, '4/4')
     add_art(im, 'lea-39-serra-angel.png')
-    printer.printImage(img, True)
+    printer.printImage(im, True)
 
     printer.feed(2)
 
