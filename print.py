@@ -10,11 +10,12 @@ def main():
 
     im = Image.open('template.png')
     add_name(im, 'Serra Angel')
+    add_mana_cost(im, '3WW')
+    add_art(im, 'lea-39-serra-angel.png')
+    add_types(im, 'Angel')
     add_rules(im, 'Flying, Vigilance')
     add_artist(im, 'Douglas Schuler')
-    add_types(im, 'Angel')
     add_power_toughness(im, '4/4')
-    add_art(im, 'lea-39-serra-angel.png')
     printer.printImage(im, True)
 
     printer.feed(2)
@@ -27,6 +28,18 @@ def add_name(image, text):
   draw = ImageDraw.Draw(image)
   draw.text((30,28), text, font=fnt)
 
+def add_mana_cost(image, text):
+  draw = ImageDraw.Draw(image)
+  draw.text((300,28), text, font=fnt)
+
+def add_art(image, art):
+  im = Image.open(art)
+  image.paste(im, (40, 51))
+
+def add_types(image, text):
+  draw = ImageDraw.Draw(image)
+  draw.text((35,295), text, font=fnt)
+
 def add_rules(image, text):
   draw = ImageDraw.Draw(image)
   draw.text((50,320), text, font=fnt)
@@ -37,19 +50,7 @@ def add_artist(image, text):
 
 def add_power_toughness(image, text):
   draw = ImageDraw.Draw(image)
-  draw.text((300,480), text, font=fnt)
-
-def add_art(image, art):
-  im = Image.open(art)
-  image.paste(im, (40, 51))
-
-def add_types(image, text):
-  draw = ImageDraw.Draw(image)
-  draw.text((35,295), text, font=fnt)
-
-def add_mana_cost(image, text):
-  draw = ImageDraw.Draw(image)
-  draw.text((30,28), text, font=fnt)
+  draw.text((310,480), text, font=fnt)
 
 if __name__ == '__main__':
   main()
