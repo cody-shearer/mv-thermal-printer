@@ -9,48 +9,44 @@ def main():
     printer = Adafruit_Thermal("/dev/ttyUSB0", 9600, timeout=5)
 
     im = Image.open('template.png')
-    add_name(im, 'Serra Angel')
-    add_mana_cost(im, '3WW')
+    draw = ImageDraw.Draw(im)
+    
+    add_name(draw, 'Serra Angel')
+    add_mana_cost(draw, '3WW')
     add_art(im, 'lea-39-serra-angel.png')
-    add_types(im, 'Angel')
-    add_rules(im, 'Flying, Vigilance')
-    add_artist(im, 'Douglas Schuler')
-    add_power_toughness(im, '4/4')
+    add_types(draw, 'Angel')
+    add_rules(draw, 'Flying, Vigilance')
+    add_artist(draw, 'Douglas Schuler')
+    add_power_toughness(draw, 4, 4)
+
     printer.printImage(im, True)
 
     printer.feed(2)
+    printer.sleep()      
+    printer.wake()       
+    printer.setDefault() 
 
-    printer.sleep()      # Tell printer to sleep
-    printer.wake()       # Call wake() before printing again, even if reset
-    printer.setDefault() # Restore printer to defaults
-
-def add_name(image, text):
-  draw = ImageDraw.Draw(image)
+def add_name(draw: ImageDraw, text: str):
   draw.text((30,28), text, font=fnt)
 
-def add_mana_cost(image, text):
-  draw = ImageDraw.Draw(image)
+def add_mana_cost(draw: ImageDraw, text: str):
   draw.text((300,28), text, font=fnt)
 
-def add_art(image, art):
+def add_art(image: Image, art: str): #expects images sized 304x245
   im = Image.open(art)
   image.paste(im, (40, 51))
 
-def add_types(image, text):
-  draw = ImageDraw.Draw(image)
+def add_types(draw: ImageDraw, text: str):
   draw.text((35,295), text, font=fnt)
 
-def add_rules(image, text):
-  draw = ImageDraw.Draw(image)
+def add_rules(draw: ImageDraw, text: str):
   draw.text((50,320), text, font=fnt)
 
-def add_artist(image, text):
-  draw = ImageDraw.Draw(image)
+def add_artist(draw: ImageDraw, text: str):
   draw.text((35,480), text, font=fnt)
 
-def add_power_toughness(image, text):
-  draw = ImageDraw.Draw(image)
-  draw.text((310,480), text, font=fnt)
+def add_power_toughness(draw: ImageDraw, power: int, toughness: int):
+  draw.text((310,480), str(power) + '/' + str(toughness), font=fnt)
 
 if __name__ == '__main__':
   main()
