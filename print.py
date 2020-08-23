@@ -11,7 +11,7 @@ def main():
     
     add_name(draw, 'Serra Angel')
     add_mana_cost(draw, '3WW')
-    add_art(im, 'lea-39-serra-angel.png')
+    add_art(im, 'testimage.png')
     add_types(draw, 'Angel')
     add_rules(draw, 'Flying, Vigilance')
     add_artist(draw, 'Douglas Schuler')
