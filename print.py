@@ -1,13 +1,11 @@
 #!/usr/bin/python
 import sys, os, random, getopt, re
-from Adafruit_Thermal import *
+import uuid
 from PIL import Image, ImageFont, ImageDraw
 
 fnt = ImageFont.truetype('VCR_OSD_MONO_1.001.ttf', 21)
 
 def main():
-    printer = Adafruit_Thermal("/dev/ttyUSB0", 9600, timeout=5)
-
     im = Image.open('template.png')
     draw = ImageDraw.Draw(im)
     
@@ -19,12 +17,13 @@ def main():
     add_artist(draw, 'Douglas Schuler')
     add_power_toughness(draw, 4, 4)
 
-    printer.printImage(im, True)
+    print_file = str(uuid.uuid1()) + '.png'
+    im.save(print_file, 'PNG')
 
-    printer.feed(2)
-    printer.sleep()      
-    printer.wake()       
-    printer.setDefault() 
+    #lp is the CUPS print command
+    os.system('lp ' + print_file)
+    os.remove(print_file)
+
 
 def add_name(draw: ImageDraw, text: str):
   draw.text((30,28), text, font=fnt)
