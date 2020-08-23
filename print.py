@@ -18,11 +18,12 @@ def main():
     add_power_toughness(draw, 4, 4)
 
     print_file = str(uuid.uuid1()) + '.png'
+    im.show()
     im.save(print_file, 'PNG')
 
     #lp is the CUPS print command
-    #os.system('lp ' + print_file)
-    #os.remove(print_file)
+    os.system('lp ' + print_file)
+    os.remove(print_file)
 
 
 def add_name(draw: ImageDraw, text: str):
@@ -31,9 +32,10 @@ def add_name(draw: ImageDraw, text: str):
 def add_mana_cost(draw: ImageDraw, text: str):
   draw.text((300,28), text, font=fnt)
 
-def add_art(image: Image, art: str): #expects images sized 304x245
-  im = Image.open(art)
-  image.paste(im, (40, 51))
+def add_art(im_dest: Image, art: str): #expects images sized 304x245
+  with Image.open(art) as im:
+    im_dest.paste(im, (40, 51))
+
 
 def add_types(draw: ImageDraw, text: str):
   draw.text((35,295), text, font=fnt)
