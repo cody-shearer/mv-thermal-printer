@@ -18,6 +18,7 @@ def main():
     add_power_toughness(draw, 4, 4)
 
     print_file = str(uuid.uuid1()) + '.png'
+    
     #im.show()
     im.save(print_file, 'PNG')
 
