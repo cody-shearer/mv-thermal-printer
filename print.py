@@ -21,8 +21,8 @@ def main():
     im.save(print_file, 'PNG')
 
     #lp is the CUPS print command
-    os.system('lp ' + print_file)
-    os.remove(print_file)
+    #os.system('lp ' + print_file)
+    #os.remove(print_file)
 
 
 def add_name(draw: ImageDraw, text: str):
