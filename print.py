@@ -21,7 +21,7 @@ def main(argv):
     add_art(im, art_file)
     add_types(draw, card_type)
     add_rules(draw, rules)
-    add_artist(draw, artist)z 
+    add_artist(draw, artist)
     add_power_toughness(draw, power, toughness)
 
     print_file = str(uuid.uuid1()) + '.png'
