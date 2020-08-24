@@ -1,30 +1,33 @@
 #!/usr/bin/python
 import sys, os, random, getopt, re
 import uuid
+import mariadb
 from PIL import Image, ImageFont, ImageDraw
 
 fnt = ImageFont.truetype('VCR_OSD_MONO_1.001.ttf', 21)
 
-def main():
-    im = Image.open('template.png')
-    draw = ImageDraw.Draw(im)
-    
-    add_name(draw, 'Serra Angel')
-    add_mana_cost(draw, '3WW')
-    add_art(im, 'testimage.png')
-    add_types(draw, 'Angel')
-    add_rules(draw, 'Flying, Vigilance')
-    add_artist(draw, 'Douglas Schuler')
-    add_power_toughness(draw, 4, 4)
+def main(argv):
+  name, mana_cost, art_file, card_type, rules, artist, power, toughness = get_card(int(argv))[0]
 
-    print_file = str(uuid.uuid1()) + '.png'
-    
-    #im.show()
-    im.save(print_file, 'PNG')
+  im = Image.open('template.png')
+  draw = ImageDraw.Draw(im)
 
-    #lp is the CUPS print command
-    os.system('lp ' + print_file)
-    os.remove(print_file)
+  add_name(draw, name)
+  add_mana_cost(draw, mana_cost)
+  add_art(im, art_file)
+  add_types(draw, card_type)
+  add_rules(draw, rules)
+  add_artist(draw, artist)
+  add_power_toughness(draw, power, toughness)
+
+  print_file = str(uuid.uuid1()) + '.png'
+
+  #im.show()
+  im.save(print_file, 'PNG')
+
+  #lp is the CUPS print command
+  os.system('lp ' + print_file)
+  os.remove(print_file)
 
 
 def add_name(draw: ImageDraw, text: str):
@@ -50,5 +53,22 @@ def add_artist(draw: ImageDraw, text: str):
 def add_power_toughness(draw: ImageDraw, power: int, toughness: int):
   draw.text((310,480), str(power) + '/' + str(toughness), font=fnt)
 
+def get_card(cmc):
+  conn = mariadb.connect(host='127.0.0.1', user ='root', password = 'pass', db='mtg')
+  cursor = conn.cursor()
+  sql = (
+      'select\
+          name, mana_cost, art_file, type, rules, artist, power, toughness\
+      from\
+          mtg.oracle_cards\
+      where\
+          cmc = %s\
+          and not art_file is null\
+      order by\
+        rand()\
+      limit 1')
+  cursor.execute(sql, [cmc])
+  return cursor.fetchall()  
+
 if __name__ == '__main__':
-  main()
+  main(sys.argv[0])
