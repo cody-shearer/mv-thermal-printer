@@ -2,7 +2,7 @@
 # A local MariaDB instance is queried for a random card with the given CMC.
 # An image is constructed from a template, the card art, and card info and then printed.
 
-import mysql.connector
+import mariadb
 import os
 import sys
 import uuid
@@ -87,8 +87,8 @@ def add_power_toughness(draw: ImageDraw, power: int, toughness: int):
 
 
 def get_card(cmc):
-    conn = mysql.connector.connect(host='127.0.0.1', user='root',
-                           password='pass', db='mtg', port=3307)
+    conn = mariadb.connect(host='127.0.0.1', user='root',
+                           password='pass', db='mtg')
     cursor = conn.cursor()
     sql = (
         'select \
