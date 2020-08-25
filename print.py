@@ -62,7 +62,7 @@ def add_rules(draw: ImageDraw, text: str):
     for line in text_no_reminder.split('\n'):
         new_line = ''
         ret_line = ''
-        if fnt.getsize(text_no_reminder)[0] > 286: 
+        if fnt.getsize(line)[0] > 286: 
             for word in line.split(' '):
                 if fnt.getsize(new_line  + word)[0]  > 286 or fnt.getsize(word)[0] > 286:
                     if ret_line == '':  
@@ -75,6 +75,7 @@ def add_rules(draw: ImageDraw, text: str):
             ret_line = ret_line + new_line
         else:
             ret_line = line
+
         if formatted_text == '':
             formatted_text = ret_line + '\n' 
         else:
