@@ -106,4 +106,4 @@ def get_card(cmc):
 
 
 if __name__ == '__main__':
-    main(2)
+    main(argv[1])
