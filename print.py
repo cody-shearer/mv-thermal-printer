@@ -73,6 +73,8 @@ def add_rules(draw: ImageDraw, text: str):
                 else:
                     new_line = new_line + word + ' '
             ret_line = ret_line + new_line
+        else:
+            ret_line = line
         if formatted_text == '':
             formatted_text = ret_line + '\n' 
         else:
