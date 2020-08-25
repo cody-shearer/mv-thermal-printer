@@ -4,6 +4,7 @@
 
 import mariadb
 import os
+import re
 import sys
 import uuid
 from PIL import Image, ImageFont, ImageDraw
@@ -50,28 +51,35 @@ def add_art(im_dest: Image, art: str):
 def add_types(draw: ImageDraw, text: str):
     draw.text((30, 299), text, font=fnt)
 
-#max 286 width per line
+# max 286 width per line
 def add_rules(draw: ImageDraw, text: str):
     formatted_text = ''
-    for line in text.split('\n'):
+
+    # removing reminder text to reduce rules text length
+    text_no_reminder = re.sub(re.compile("[(].*?[)]"), '', text)
+    
+    # insert \n as needed to keep rules text within the box
+    for line in text_no_reminder.split('\n'):
         new_line = ''
         ret_line = ''
-        if fnt.getsize(text)[0] > 286: 
+        if fnt.getsize(text_no_reminder)[0] > 286: 
             for word in line.split(' '):
                 if fnt.getsize(new_line  + word)[0]  > 286 or fnt.getsize(word)[0] > 286:
                     if ret_line == '':  
-                        ret_line = new_line
+                        ret_line = new_line + '\n'
                     else:
-                        ret_line = ret_line + '\n' + new_line
+                        ret_line = ret_line + new_line + '\n'
                     new_line = word + ' '
                 else:
                     new_line = new_line + word + ' '
-            ret_line = ret_line + '\n' + new_line
+            ret_line = ret_line + new_line
         if formatted_text == '':
-            formatted_text = ret_line
+            formatted_text = ret_line + '\n' 
         else:
-            formatted_text = formatted_text + '\n' + ret_line
+            formatted_text = formatted_text + ret_line + '\n'  
     
+    formatted_text = formatted_text.strip()
+
     if len(formatted_text.split('\n')) > 7:
         formatted_text = 'Rules text too long.\n'
 
