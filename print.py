@@ -26,12 +26,12 @@ def main(argv):
 
     print_file = str(uuid.uuid1()) + '.png'
 
-    im.show()
-    #im.save(print_file, 'PNG')
+    #im.show()
+    im.save(print_file, 'PNG')
 
     # lp is the CUPS print command
-    #os.system('lp ' + print_file)
-    #os.remove(print_file)
+    os.system('lp ' + print_file)
+    os.remove(print_file)
 
 
 def add_name(draw: ImageDraw, text: str):
