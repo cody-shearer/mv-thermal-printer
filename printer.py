@@ -11,7 +11,7 @@ from PIL import Image, ImageFont, ImageDraw
 
 fnt = ImageFont.truetype('mplantin.ttf', 20)
 
-def main(argv):
+def print_card(argv):
     name, mana_cost, art_file, card_type, rules, artist, power, toughness = get_card(int(argv))[0]
 
     im = Image.open('template.png')
@@ -27,7 +27,7 @@ def main(argv):
 
     print_file = str(uuid.uuid1()) + '.png'
 
-    #im.show()
+    # im.show()
     im.save(print_file, 'PNG')
 
     # lp is the CUPS print command
@@ -42,8 +42,8 @@ def add_name(draw: ImageDraw, text: str):
 def add_mana_cost(draw: ImageDraw, text: str):
     draw.text((355 - fnt.getsize(text)[0], 28), text, font=fnt)
 
-# expects images sized 304x245
-def add_art(im_dest: Image, art: str):  
+
+def add_art(im_dest: Image, art: str): # expects images sized 304x245
     with Image.open(art) as im:
         im_dest.paste(im, (40, 51))
 
@@ -51,21 +51,21 @@ def add_art(im_dest: Image, art: str):
 def add_types(draw: ImageDraw, text: str):
     draw.text((30, 299), text, font=fnt)
 
-# max 286 width per line
-def add_rules(draw: ImageDraw, text: str):
+
+def add_rules(draw: ImageDraw, text: str): # max 286 width per line
     formatted_text = ''
 
     # removing reminder text to reduce rules text length
     text_no_reminder = re.sub(re.compile("[(].*?[)]"), '', text)
-    
+
     # insert \n as needed to keep rules text within the box
     for line in text_no_reminder.split('\n'):
         new_line = ''
         ret_line = ''
-        if fnt.getsize(line)[0] > 286: 
+        if fnt.getsize(line)[0] > 286:
             for word in line.split(' '):
-                if fnt.getsize(new_line  + word)[0]  > 286 or fnt.getsize(word)[0] > 286:
-                    if ret_line == '':  
+                if fnt.getsize(new_line + word)[0] > 286 or fnt.getsize(word)[0] > 286:
+                    if ret_line == '':
                         ret_line = new_line + '\n'
                     else:
                         ret_line = ret_line + new_line + '\n'
@@ -77,16 +77,17 @@ def add_rules(draw: ImageDraw, text: str):
             ret_line = line
 
         if formatted_text == '':
-            formatted_text = ret_line + '\n' 
+            formatted_text = ret_line + '\n'
         else:
-            formatted_text = formatted_text + ret_line + '\n'  
-    
+            formatted_text = formatted_text + ret_line + '\n'
+
     formatted_text = formatted_text.strip()
 
     if len(formatted_text.split('\n')) > 7:
         formatted_text = 'Rules text too long.\n'
 
     draw.text((48, 322), formatted_text, font=fnt)
+
 
 def add_artist(draw: ImageDraw, text: str):
     draw.text((30, 480), text, font=fnt)
@@ -117,4 +118,4 @@ def get_card(cmc):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    print_card(sys.argv[1])
