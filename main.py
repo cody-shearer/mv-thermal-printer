@@ -35,7 +35,7 @@ while True:
     if len(keys) <= 3:
         if keys and not wait:
             wait = True
-
+        
             if str(keys)[1] == '\'':
                 key = str(keys)[2]
             else:
@@ -45,9 +45,10 @@ while True:
                 disp = '00'
                 display.print(disp)
             elif key == '#':
+                cmc = int(disp)
                 disp = '00'
                 display.print(disp)
-                printer.print_card(int(disp))
+                printer.print_card(cmc)
             else:
                 disp = disp[1] + str(key)
                 display.print(disp)

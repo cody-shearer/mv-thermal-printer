@@ -12,7 +12,7 @@ from PIL import Image, ImageFont, ImageDraw
 fnt = ImageFont.truetype('/home/pi/mv-thermal-printer/mplantin.ttf', 20)
 
 def print_card(argv):
-    name, mana_cost, art_file, card_type, rules, artist, power, toughness = get_card(int(argv))[0]
+    name, mana_cost, art_file, card_type, rules, artist, power, toughness = get_card(argv)[0]
 
     im = Image.open('/home/pi/mv-thermal-printer/template.png')
     draw = ImageDraw.Draw(im)
@@ -118,4 +118,4 @@ def get_card(cmc):
 
 
 if __name__ == '__main__':
-    print_card(sys.argv[1])
+    print_card(int(sys.argv[1]))
