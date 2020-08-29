@@ -9,12 +9,12 @@ import sys
 import uuid
 from PIL import Image, ImageFont, ImageDraw
 
-fnt = ImageFont.truetype('mplantin.ttf', 20)
+fnt = ImageFont.truetype('/home/pi/mv-thermal-printer/mplantin.ttf', 20)
 
 def print_card(argv):
     name, mana_cost, art_file, card_type, rules, artist, power, toughness = get_card(int(argv))[0]
 
-    im = Image.open('template.png')
+    im = Image.open('/home/pi/mv-thermal-printer/template.png')
     draw = ImageDraw.Draw(im)
 
     add_name(draw, name)
@@ -25,7 +25,7 @@ def print_card(argv):
     add_artist(draw, artist)
     add_power_toughness(draw, power, toughness)
 
-    print_file = str(uuid.uuid1()) + '.png'
+    print_file = '/home/pi/mv-thermal-printer/' + str(uuid.uuid1()) + '.png'
 
     # im.show()
     im.save(print_file, 'PNG')
